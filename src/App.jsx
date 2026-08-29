@@ -12,7 +12,7 @@ const atividadesIniciais = [
     likes: 4,
     comentarios: 4,
     data: '18:30 - 12/08/2024',
-    avatar: '👩🏻',
+    curtido: false,
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const atividadesIniciais = [
     likes: 5,
     comentarios: 4,
     data: '20:40 - 15/08/2024',
-    avatar: '👨🏿',
+    curtido: false,
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const atividadesIniciais = [
     likes: 3,
     comentarios: 4,
     data: '05:30 - 09/07/2024',
-    avatar: '👩🏻',
+    curtido: false,
   },
   {
     id: 4,
@@ -48,22 +48,162 @@ const atividadesIniciais = [
     likes: 8,
     comentarios: 4,
     data: '17:20 - 07/07/2024',
-    avatar: '👨🏿',
+    curtido: false,
   },
 ]
+
+function IconInstagram() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+      <circle
+        cx="17.5"
+        cy="6.5"
+        r="1"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function IconTwitter() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.49 22H3.38l7.24-8.28L2.8 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.86h1.73L8.3 4.02H6.44L17.8 19.86Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function IconTikTok() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M16.5 3c.3 2.1 1.5 3.4 3.5 3.6v3.1c-1.5 0-2.7-.4-3.6-1.1v6.7c0 4.1-2.8 6.7-6.5 6.7-3.7 0-6.2-2.5-6.2-5.8 0-3.6 2.8-6 6.7-6.1v3.2c-2.1.1-3.3 1.1-3.3 2.8 0 1.5 1.1 2.6 2.8 2.6 1.8 0 3.2-1.3 3.2-3.5V3h3.4Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function IconUsuario() {
+  return (
+    <svg
+      className="icone-usuario"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle
+        cx="12"
+        cy="8"
+        r="4"
+        fill="currentColor"
+      />
+      <path
+        d="M4 21c0-4.42 3.58-8 8-8s8 3.58 8 8H4Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function IconCoracao({ curtido }) {
+  return (
+    <svg
+      className={`icone-coracao ${curtido ? 'curtido' : ''}`}
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z"
+        fill={curtido ? '#FF0000' : 'none'}
+        stroke={curtido ? '#FF0000' : '#333333'}
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
+
+function IconChat() {
+  return (
+    <svg
+      className="icone-chat"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        d="M20 11.5a8.5 8.5 0 0 1-8.5 8.5c-1.48 0-2.87-.38-4.08-1.05L3 20l1.05-4.42A8.46 8.46 0 0 1 3 11.5 8.5 8.5 0 1 1 20 11.5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
+
+function IconSend() {
+  return (
+    <svg
+      className="icone-send"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        d="M22 2 11 13"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="m22 2-7 20-4-9-9-4 20-7Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 function App() {
   const [logado, setLogado] = useState(false)
   const [mostrarLogin, setMostrarLogin] = useState(false)
+
   const [filtro, setFiltro] = useState('Todos')
   const [pagina, setPagina] = useState(1)
+
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
 
-  const atividades =
+  const [atividades, setAtividades] = useState(atividadesIniciais)
+
+  const [comentarioAberto, setComentarioAberto] = useState(null)
+  const [novoComentario, setNovoComentario] = useState('')
+
+  const atividadesFiltradas =
     filtro === 'Todos'
-      ? atividadesIniciais
-      : atividadesIniciais.filter(
+      ? atividades
+      : atividades.filter(
           (atividade) => atividade.tipo === filtro
         )
 
@@ -99,7 +239,15 @@ function App() {
 
   const selecionarFiltro = (novoFiltro) => {
     exigirLogin(() => {
-      setFiltro(novoFiltro)
+
+      // Se clicar novamente no filtro que já está selecionado,
+      // volta a mostrar todas as atividades.
+      if (filtro === novoFiltro) {
+        setFiltro('Todos')
+      } else {
+        setFiltro(novoFiltro)
+      }
+
       setPagina(1)
     })
   }
@@ -110,10 +258,76 @@ function App() {
     })
   }
 
-  const totalAtividades = atividadesIniciais.length
+  const curtirAtividade = (id) => {
+    exigirLogin(() => {
+      setAtividades((atividadesAtuais) =>
+        atividadesAtuais.map((atividade) => {
 
-  const totalCalorias = atividadesIniciais.reduce(
-    (total, atividade) => total + atividade.calorias,
+          if (atividade.id !== id) {
+            return atividade
+          }
+
+          if (atividade.curtido) {
+            return {
+              ...atividade,
+              likes: atividade.likes - 1,
+              curtido: false,
+            }
+          }
+
+          return {
+            ...atividade,
+            likes: atividade.likes + 1,
+            curtido: true,
+          }
+        })
+      )
+    })
+  }
+
+  const abrirComentarios = (id) => {
+    exigirLogin(() => {
+      setComentarioAberto((atual) =>
+        atual === id ? null : id
+      )
+
+      setNovoComentario('')
+    })
+  }
+
+  const enviarComentario = (id) => {
+    exigirLogin(() => {
+
+      if (novoComentario.trim().length <= 2) {
+        alert(
+          'não é possível enviar um comentário vazio'
+        )
+        return
+      }
+
+      setAtividades((atividadesAtuais) =>
+        atividadesAtuais.map((atividade) => {
+
+          if (atividade.id !== id) {
+            return atividade
+          }
+
+          return {
+            ...atividade,
+            comentarios: atividade.comentarios + 1,
+          }
+        })
+      )
+
+      setNovoComentario('')
+    })
+  }
+
+  const totalAtividades = atividades.length
+
+  const totalCalorias = atividades.reduce(
+    (total, atividade) =>
+      total + atividade.calorias,
     0
   )
 
@@ -126,13 +340,19 @@ function App() {
         <div className="perfil-conteudo">
 
           <div className="logo-area">
+
             <div className="logo-placeholder">
               <span>SAEP</span>
               <strong>SAÚDE</strong>
             </div>
+
           </div>
 
-          <h1 className="nome-logo">SAEPSaúde</h1>
+          {/* Futuramente será substituído pelo nome
+              do usuário logado vindo do banco. */}
+          <h1 className="nome-logo">
+            SAEPSaúde
+          </h1>
 
           <div className="estatisticas">
 
@@ -149,11 +369,18 @@ function App() {
           </div>
 
           <button
-            className={`botao-atividade ${!logado ? 'desabilitado' : ''}`}
+            className={`botao-atividade ${
+              !logado ? 'desabilitado' : ''
+            }`}
             disabled={!logado}
-            onClick={() => exigirLogin(() => {})}
+            onClick={() =>
+              exigirLogin(() => {})
+            }
           >
-            <span className="icone-atividade">▥</span>
+            <span className="icone-atividade">
+              ▥
+            </span>
+
             Atividade
           </button>
 
@@ -166,13 +393,23 @@ function App() {
 
           <div className="redes">
 
-            <span title="Instagram">◎</span>
-            <span title="Twitter">♥</span>
-            <span title="TikTok">♪</span>
+            <span title="Instagram">
+              <IconInstagram />
+            </span>
+
+            <span title="Twitter">
+              <IconTwitter />
+            </span>
+
+            <span title="TikTok">
+              <IconTikTok />
+            </span>
 
           </div>
 
-          <small>Copyright-2024</small>
+          <small>
+            Copyright-2024
+          </small>
 
         </footer>
 
@@ -183,8 +420,17 @@ function App() {
         <header className="cabecalho">
 
           <button
-            className="botao-login"
-            onClick={logado ? () => setLogado(false) : abrirLogin}
+            className={`botao-login ${
+              logado ? 'botao-logout' : ''
+            }`}
+            onClick={
+              logado
+                ? () => {
+                    setLogado(false)
+                    setComentarioAberto(null)
+                  }
+                : abrirLogin
+            }
           >
             {logado ? 'Logout' : 'Login'}
           </button>
@@ -194,22 +440,40 @@ function App() {
         <nav className="filtros">
 
           <button
-            className={filtro === 'Corrida' ? 'filtro ativo' : 'filtro'}
-            onClick={() => selecionarFiltro('Corrida')}
+            className={
+              filtro === 'Corrida'
+                ? 'filtro ativo'
+                : 'filtro'
+            }
+            onClick={() =>
+              selecionarFiltro('Corrida')
+            }
           >
             Corrida
           </button>
 
           <button
-            className={filtro === 'Caminhada' ? 'filtro ativo' : 'filtro'}
-            onClick={() => selecionarFiltro('Caminhada')}
+            className={
+              filtro === 'Caminhada'
+                ? 'filtro ativo'
+                : 'filtro'
+            }
+            onClick={() =>
+              selecionarFiltro('Caminhada')
+            }
           >
             Caminhada
           </button>
 
           <button
-            className={filtro === 'Trilha' ? 'filtro ativo' : 'filtro'}
-            onClick={() => selecionarFiltro('Trilha')}
+            className={
+              filtro === 'Trilha'
+                ? 'filtro ativo'
+                : 'filtro'
+            }
+            onClick={() =>
+              selecionarFiltro('Trilha')
+            }
           >
             Trilha
           </button>
@@ -218,105 +482,205 @@ function App() {
 
         <section className="lista-atividades">
 
-          {atividades.map((atividade) => (
+          {atividadesFiltradas.map(
+            (atividade) => (
 
-            <article className="atividade-card" key={atividade.id}>
+              <article
+                className="atividade-card"
+                key={atividade.id}
+              >
 
-              <div className="avatar">
-                {atividade.avatar}
-              </div>
-
-              <div className="usuario">
-                <strong>{atividade.usuario}</strong>
-              </div>
-
-              <div className="tipo">
-                <strong>{atividade.tipo}</strong>
-              </div>
-
-              <div className="data">
-                {atividade.data}
-              </div>
-
-              <div className="informacoes">
-
-                <div>
-                  <strong>{atividade.distancia}</strong>
-                  <span>Distância</span>
+                <div className="avatar">
+                  <IconUsuario />
                 </div>
 
-                <div>
-                  <strong>{atividade.duracao}</strong>
-                  <span>Duração</span>
+                <div className="usuario">
+                  <strong>
+                    {atividade.usuario}
+                  </strong>
                 </div>
 
-                <div>
-                  <strong>{atividade.calorias}</strong>
-                  <span>Calorias</span>
+                <div className="tipo">
+                  <strong>
+                    {atividade.tipo}
+                  </strong>
                 </div>
 
-              </div>
+                <div className="data">
+                  {atividade.data}
+                </div>
 
-              <div className="acoes">
+                <div className="informacoes">
 
-                <button
-                  onClick={() =>
-                    exigirLogin(() => {})
-                  }
-                  title="Curtir atividade"
-                >
-                  ♡ <span>{atividade.likes}</span>
-                </button>
+                  <div>
+                    <strong>
+                      {atividade.distancia}
+                    </strong>
 
-                <button
-                  onClick={() =>
-                    exigirLogin(() => {})
-                  }
-                  title="Comentar atividade"
-                >
-                  ▤ <span>{atividade.comentarios}</span>
-                </button>
+                    <span>
+                      Distância
+                    </span>
+                  </div>
 
-              </div>
+                  <div>
+                    <strong>
+                      {atividade.duracao}
+                    </strong>
 
-            </article>
+                    <span>
+                      Duração
+                    </span>
+                  </div>
 
-          ))}
+                  <div>
+                    <strong>
+                      {atividade.calorias}
+                    </strong>
+
+                    <span>
+                      Calorias
+                    </span>
+                  </div>
+
+                </div>
+
+                <div className="acoes">
+
+                  <button
+                    onClick={() =>
+                      curtirAtividade(
+                        atividade.id
+                      )
+                    }
+                    title="Curtir atividade"
+                  >
+                    <IconCoracao
+                      curtido={
+                        atividade.curtido
+                      }
+                    />
+
+                    <span>
+                      {atividade.likes}
+                    </span>
+                  </button>
+
+                  <button
+                    onClick={() =>
+                      abrirComentarios(
+                        atividade.id
+                      )
+                    }
+                    title="Comentar atividade"
+                  >
+                    <IconChat />
+
+                    <span>
+                      {atividade.comentarios}
+                    </span>
+                  </button>
+
+                </div>
+
+                {comentarioAberto ===
+                  atividade.id && (
+
+                  <div className="area-comentario">
+
+                    <input
+                      type="text"
+                      placeholder="Escrever um comentário…"
+                      value={novoComentario}
+                      onChange={(event) =>
+                        setNovoComentario(
+                          event.target.value
+                        )
+                      }
+                    />
+
+                    <button
+                      type="button"
+                      title="Enviar comentário"
+                      onClick={() =>
+                        enviarComentario(
+                          atividade.id
+                        )
+                      }
+                    >
+                      <IconSend />
+                    </button>
+
+                  </div>
+
+                )}
+
+              </article>
+
+            )
+          )}
 
         </section>
-
 
         <div className="paginacao">
 
           <button
-            onClick={() => selecionarPagina(Math.max(1, pagina - 1))}
+            onClick={() =>
+              selecionarPagina(
+                Math.max(1, pagina - 1)
+              )
+            }
           >
             Anterior
           </button>
 
           <button
-            className={pagina === 1 ? 'pagina-ativa' : ''}
-            onClick={() => selecionarPagina(1)}
+            className={
+              pagina === 1
+                ? 'pagina-ativa'
+                : ''
+            }
+            onClick={() =>
+              selecionarPagina(1)
+            }
           >
             1
           </button>
 
           <button
-            className={pagina === 2 ? 'pagina-ativa' : ''}
-            onClick={() => selecionarPagina(2)}
+            className={
+              pagina === 2
+                ? 'pagina-ativa'
+                : ''
+            }
+            onClick={() =>
+              selecionarPagina(2)
+            }
           >
             2
           </button>
 
           <button
-            className={pagina === 3 ? 'pagina-ativa' : ''}
-            onClick={() => selecionarPagina(3)}
+            className={
+              pagina === 3
+                ? 'pagina-ativa'
+                : ''
+            }
+            onClick={() =>
+              selecionarPagina(3)
+            }
           >
             3
           </button>
 
           <button
-            onClick={() => selecionarPagina(Math.min(3, pagina + 1))}
+            onClick={() =>
+              selecionarPagina(
+                Math.min(
+                  3,
+                  pagina + 1
+                )
+              )
+            }
           >
             Próximo
           </button>
@@ -357,7 +721,9 @@ function App() {
                   type="email"
                   value={email}
                   onChange={(event) =>
-                    setEmail(event.target.value)
+                    setEmail(
+                      event.target.value
+                    )
                   }
                 />
 
@@ -374,7 +740,9 @@ function App() {
                   type="password"
                   value={senha}
                   onChange={(event) =>
-                    setSenha(event.target.value)
+                    setSenha(
+                      event.target.value
+                    )
                   }
                 />
 

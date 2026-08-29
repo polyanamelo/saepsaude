@@ -26,12 +26,21 @@ button {
 }
 
 
+/* =========================
+   ESTRUTURA PRINCIPAL
+========================= */
+
 .pagina {
   min-height: 100vh;
   width: 100%;
   display: grid;
   grid-template-columns: 160px 1fr;
 }
+
+
+/* =========================
+   PERFIL / LATERAL
+========================= */
 
 .perfil {
   min-height: 100vh;
@@ -127,6 +136,10 @@ button {
 }
 
 
+/* =========================
+   RODAPÉ
+========================= */
+
 .rodape {
   border-top: 1px solid #777777;
   padding: 10px 5px 8px;
@@ -147,12 +160,27 @@ button {
 }
 
 .redes span {
-  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.redes svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .rodape small {
   font-size: 8px;
 }
+
+
+/* =========================
+   ÁREA PRINCIPAL
+========================= */
 
 .main {
   min-width: 0;
@@ -181,6 +209,26 @@ button {
   background: #f2f2f2;
 }
 
+
+/* =========================
+   LOGOUT
+========================= */
+
+.botao-login.botao-logout {
+  background: #333333;
+  color: #ffffff;
+  border: 1px solid #333333;
+}
+
+.botao-login.botao-logout:hover {
+  background: #444444;
+}
+
+
+/* =========================
+   FILTROS
+========================= */
+
 .filtros {
   width: 100%;
   height: 25px;
@@ -200,6 +248,11 @@ button {
 .filtro.ativo {
   background: #444444;
 }
+
+
+/* =========================
+   ATIVIDADES
+========================= */
 
 .lista-atividades {
   width: 100%;
@@ -223,7 +276,13 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 39px;
+}
+
+.icone-usuario {
+  width: 39px;
+  height: 39px;
+  color: #333333;
+  display: block;
 }
 
 .usuario {
@@ -247,11 +306,16 @@ button {
   font-size: 9px;
 }
 
+
+/* =========================
+   DISTÂNCIA / DURAÇÃO / CALORIAS
+========================= */
+
 .informacoes {
   grid-column: 2 / 5;
   grid-row: 2;
-  display: flex;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   padding-left: 0;
 }
 
@@ -269,11 +333,17 @@ button {
   font-size: 8px;
 }
 
+
+/* =========================
+   AÇÕES
+========================= */
+
 .acoes {
   grid-column: 5;
   grid-row: 2;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
   gap: 15px;
   padding-right: 8px;
 }
@@ -284,10 +354,90 @@ button {
   color: #333333;
   font-size: 18px;
   padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.acoes button:hover {
+  opacity: 0.75;
 }
 
 .acoes button span {
   font-size: 13px;
+}
+
+.icone-coracao,
+.icone-chat {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.icone-coracao {
+  transition: 0.15s ease;
+}
+
+.icone-coracao.curtido {
+  color: #FF0000;
+}
+
+
+/* =========================
+   COMENTÁRIOS
+========================= */
+
+.area-comentario {
+  grid-column: 2 / 6;
+  grid-row: 3;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 8px;
+  border-top: 1px solid #dddddd;
+  background: #f8f8f8;
+}
+
+.atividade-card:has(.area-comentario) {
+  grid-template-rows: 35px 35px auto;
+}
+
+.area-comentario input {
+  flex: 1;
+  height: 25px;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  background: #ffffff;
+  color: #333333;
+  padding: 3px 7px;
+  font-size: 10px;
+  outline: none;
+}
+
+.area-comentario input:focus {
+  border-color: #555555;
+}
+
+.area-comentario input::placeholder {
+  color: #777777;
+}
+
+.area-comentario button {
+  width: 27px;
+  height: 25px;
+  border: 1px solid #777777;
+  border-radius: 3px;
+  background: #333333;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.icone-send {
+  width: 14px;
+  height: 14px;
 }
 
 
@@ -316,13 +466,13 @@ button {
 }
 
 .paginacao .pagina-ativa {
-  background: #403b99;
+  background: #483DAD;
   color: #ffffff;
 }
 
 
 /* =========================
-   MODAL LOGIN
+   MODAL DE LOGIN
 ========================= */
 
 .modal-overlay {
@@ -356,6 +506,7 @@ button {
   font-size: 14px;
   margin: 0;
   font-weight: normal;
+  color: #000000;
 }
 
 .fechar-modal {
@@ -392,6 +543,8 @@ button {
   outline: none;
   padding: 2px 5px;
   font-size: 10px;
+  background: #ffffff;
+  color: #333333;
 }
 
 .campo input:focus {
